@@ -10,6 +10,7 @@ public class GetData : MonoBehaviour {
     // Use this for initialization
     void Start(){
         getConfig();
+        getState();
     }
 
     // Update is called once per frame
@@ -24,9 +25,10 @@ public class GetData : MonoBehaviour {
         XmlDocument xmlData = new XmlDocument();
         xmlData.Load(url);
 
+
+
+        //Henter ut map ariale
         XmlNodeList pointList = xmlData.GetElementsByTagName("point");
-
-
         double[,] boundary = new double[2,4];
         int i = 0;
         foreach(XmlNode point in pointList) {
@@ -35,6 +37,8 @@ public class GetData : MonoBehaviour {
             i++;
         }
 
+
+        //Henter ut settings fra xmlfila
         XmlNodeList settings = xmlData.GetElementsByTagName("display");
 
         foreach (XmlNode setting in settings) {
@@ -47,8 +51,35 @@ public class GetData : MonoBehaviour {
             gameManager.GetComponent<GameManager>().setSettings(boundary, catchrange, gps, opponents, points);
         }
 
-        getGameObjects(xmlData, true);
+
+        //Lager spillobjekter i scenen
+        XmlNodeList gameObjects = xmlData.GetElementsByTagName("gameObject");
+
+        GameObject go = gameManager;
+
+        foreach (XmlNode gameObject in gameObjects) {
+
+            switch (gameObject.Attributes["class"].Value) {
+                case "Fox":
+                    go = Instantiate(fox, spawn.transform.position, spawn.transform.rotation);
+                    break;
+                case "Hunter":
+                    go = Instantiate(hunter, spawn.transform.position, spawn.transform.rotation);
+                    break;
+                case "Obstacle":
+                    go = Instantiate(obstacle, spawn.transform.position, spawn.transform.rotation);
+                    break;
+            }
+
+            int id = int.Parse(gameObject.Attributes["id"].Value);
+            gameManager.GetComponent<GameManager>().gameObjects.Add(id, go);
+        }
+
+        getGameObjects(gameObjects);
     }
+
+
+
 
     public void getState() {
 
@@ -57,35 +88,38 @@ public class GetData : MonoBehaviour {
         XmlDocument xmlData = new XmlDocument();
         xmlData.Load(url);
 
+
+        //Sjekker om spillet er ferdig
         XmlNodeList messages = xmlData.GetElementsByTagName("msg");
 
         foreach (XmlNode msg in messages) {
-           // GameSettings.gameOver = bool.Parse(msg.Attributes["gameOver"].Value);
+            bool gameOver = bool.Parse(msg.Attributes["gameOver"].Value);
+            gameManager.GetComponent<GameManager>().setGameOver(gameOver);
         }
-
-        getGameObjects(xmlData, false);
-    }
-
-    public void getGameObjects(XmlDocument xmlData, bool startGame) {
 
         XmlNodeList gameObjects = xmlData.GetElementsByTagName("gameObject");
 
+        getGameObjects(gameObjects);
+
+
+    }
+
+    public void getGameObjects(XmlNodeList gameObjects) {
+
+
+        //Setter verdiene til spillobjektene
         foreach (XmlNode gameObject in gameObjects) {
-            if (startGame) {
-                switch (gameObject.Attributes["class"].Value) {
-                    case "Fox":
-                        Instantiate(fox, spawn.transform.position, spawn.transform.rotation);
-                        break;
-                    case "Hunter":
-                        Instantiate(hunter, spawn.transform.position, spawn.transform.rotation);
-                        break;
-                    case "Obstacle":
-                        Instantiate(obstacle, spawn.transform.position, spawn.transform.rotation);
-                        break;
-                }
-            }
 
+            double ln = double.Parse(gameObject.Attributes["ln"].Value);
+            double lt = double.Parse(gameObject.Attributes["lt"].Value);
+            int id = int.Parse(gameObject.Attributes["id"].Value);
+            GameObject tempGO;
 
+            gameManager.GetComponent<GameManager>().gameObjects.TryGetValue(id, out tempGO);
+
+            tempGO.GetComponent<GOScript>().setValues(ln, lt, id);
         }
     }
 }
+
+    

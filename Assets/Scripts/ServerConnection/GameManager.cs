@@ -24,6 +24,18 @@ public class GameManager : MonoBehaviour {
     }
 
     public void setSettings(double[,] boundary, double catchrange, bool gps, bool opponents, bool points) {
+        this.boundary = boundary;
+        this.catchrange = catchrange;
+        this.gps = gps;
+        this.opponents = opponents;
+        this.points = points;
+    }
+
+    public void setGameOver(bool gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public void addGameObject() {
 
     }
 }
