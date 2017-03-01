@@ -12,6 +12,7 @@ public class TileManager : MonoBehaviour {
     private GameObject tile;
 
     private float lat, lon;
+    
 
     IEnumerator Start() {
         //Check if gps is on
