@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/TileMap.unity
+- path: Assets/Scenes/MapSpawnTest.unity
   isLoaded: 1
   isActive: 1
