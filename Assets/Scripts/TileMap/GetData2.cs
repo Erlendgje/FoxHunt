@@ -59,7 +59,6 @@ public class GetData2 : MonoBehaviour {
         foreach (XmlNode gameObject in gameObjects) {
 
 
-
             switch (gameObject.Attributes["class"].Value) {
                 case "Fox":
                     go = Instantiate(fox, spawn.transform.position, spawn.transform.rotation);
@@ -111,14 +110,14 @@ public class GetData2 : MonoBehaviour {
         //Setter verdiene til spillobjektene
         foreach (XmlNode gameObject in gameObjects) {
 
-            double ln = double.Parse(gameObject.Attributes["ln"].Value);
-            double lt = double.Parse(gameObject.Attributes["lt"].Value);
+            decimal ln = decimal.Parse(gameObject.Attributes["ln"].Value);
+            decimal lt = decimal.Parse(gameObject.Attributes["lt"].Value);
             int id = int.Parse(gameObject.Attributes["id"].Value);
             GameObject tempGO;
 
             gameManager.GetComponent<GameManager2>().gameObjects.TryGetValue(id, out tempGO);
 
-            tempGO.GetComponent<GOScript>().setValues(ln, lt, id);
+            tempGO.GetComponent<GOScript2>().setValues(ln, lt, id);
         }
     }
 }

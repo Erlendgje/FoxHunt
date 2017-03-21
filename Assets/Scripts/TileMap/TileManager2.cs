@@ -80,7 +80,6 @@ public class TileManager2 : MonoBehaviour {
         for(int k = 0; k < numberOfTilesHeight; k++) {
             for(int l = 0; l < numberOfTilesWidth; l++) {
                 decimal lon = easternmostPoint + tileWidth - tileWidth * l;
-                Debug.Log(lon);
                 decimal lat = southernmosttPoint - tileLength + tileLength * k;
 
                 //URL to map

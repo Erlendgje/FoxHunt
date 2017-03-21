@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GOScript2 : MonoBehaviour {
 
-    public double lt, ln;
+    public decimal lt, ln;
     public int id;
 
     // Use this for initialization
@@ -17,7 +17,7 @@ public class GOScript2 : MonoBehaviour {
 
     }
 
-    public void setValues(double lt, double ln, int id) {
+    public void setValues(decimal lt, decimal ln, int id) {
 
         this.lt = lt;
         this.ln = ln;
