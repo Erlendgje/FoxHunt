@@ -6,8 +6,8 @@ public class Spawn : MonoBehaviour {
 
     public Transform SpawnTest;
     public bool Spawned = false;
-   // public int i;
-   //For fremtidig bruk
+    public float latitude;
+    public float longitude;
    
     // Use this for initialization
     void Start () {
@@ -16,7 +16,7 @@ public class Spawn : MonoBehaviour {
         if (Spawned == false)
         {
             Spawned = true;
-            Instantiate(SpawnTest, new Vector3(0, 100, 0), Quaternion.identity);
+            Instantiate(SpawnTest, new Vector3(-2, 100, -2), Quaternion.identity);
                 
         }
 		
