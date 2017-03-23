@@ -97,6 +97,18 @@
     <Compile Include="Assets\Scripts\TileMap\GameManager2.cs" />
     <Compile Include="Assets\Scripts\TileMap\GetData2.cs" />
     <Compile Include="Assets\Scripts\TileMap\TileManager2.cs" />
+    <Compile Include="Assets\Scripts\meny\BackHome.cs" />
+    <Compile Include="Assets\Scripts\meny\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\meny\Items.cs" />
+    <Compile Include="Assets\Scripts\meny\Kamera.cs" />
+    <Compile Include="Assets\Scripts\meny\Merknapp.cs" />
+    <Compile Include="Assets\Scripts\meny\OptionsButton.cs" />
+    <Compile Include="Assets\Scripts\meny\PickPlayerScript.cs" />
+    <Compile Include="Assets\Scripts\meny\PlayGame.cs" />
+    <Compile Include="Assets\Scripts\meny\PlayerIntoWorld.cs" />
+    <Compile Include="Assets\Scripts\meny\VolumeManager.cs" />
+    <Compile Include="Assets\Scripts\meny\lightSlider.cs" />
+    <Compile Include="Assets\Scripts\meny\rotate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

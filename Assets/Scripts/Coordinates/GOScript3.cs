@@ -7,6 +7,7 @@ public class GOScript3 : MonoBehaviour {
     public decimal lt, ln;
     public int id;
 	private float speed = 50f;
+	public int score;
     public GameObject gameManager;
 	private GameManager3 gmScript;
 	private bool first;
@@ -27,13 +28,14 @@ public class GOScript3 : MonoBehaviour {
     void Update() {
     }
 
-    public void setValues(decimal lt, decimal ln, int id) {
+    public void setValues(decimal lt, decimal ln, int id, int score) {
 
 		this.id = id;
 
 		if(lt < gmScript.northernmostPoint && lt > gmScript.southernmosttPoint && ln < gmScript.easternmostPoint && ln > gmScript.westernmostPoint) {
 			this.lt = lt;
 			this.ln = ln;
+			this.score = score;
 
 
 			if (first == true) {

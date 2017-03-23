@@ -151,11 +151,12 @@ public class GetData3 : MonoBehaviour {
             decimal ln = decimal.Parse(gameObject.Attributes["ln"].Value);
             decimal lt = decimal.Parse(gameObject.Attributes["lt"].Value);
             int id = int.Parse(gameObject.Attributes["id"].Value);
+			int score = int.Parse(gameObject.Attributes["caught"].Value);
             GameObject tempGO;
 
             gameManager.GetComponent<GameManager3>().gameObjects.TryGetValue(id, out tempGO);
 
-            tempGO.GetComponent<GOScript3>().setValues(lt, ln, id);
+            tempGO.GetComponent<GOScript3>().setValues(lt, ln, id, score);
         }
     }
 }
