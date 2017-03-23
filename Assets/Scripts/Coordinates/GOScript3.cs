@@ -6,12 +6,14 @@ public class GOScript3 : MonoBehaviour {
 
     public decimal lt, ln;
     public int id;
-	public float speed = 5f;
+	private float speed = 50f;
     public GameObject gameManager;
+	private GameManager3 gmScript;
 	private bool first;
 
 	private void Awake() {
 		gameManager = GameObject.FindGameObjectWithTag("GameManager");
+		gmScript = gameManager.GetComponent<GameManager3>();
 		first = true;
 	}
 
@@ -27,16 +29,23 @@ public class GOScript3 : MonoBehaviour {
 
     public void setValues(decimal lt, decimal ln, int id) {
 
-        this.lt = lt;
-        this.ln = ln;
-        this.id = id;
+		this.id = id;
 
-		if(first == true) {
-			transform.position = makeVector();
-			first = false;
+		if(lt < gmScript.northernmostPoint && lt > gmScript.southernmosttPoint && ln < gmScript.easternmostPoint && ln > gmScript.westernmostPoint) {
+			this.lt = lt;
+			this.ln = ln;
+
+
+			if (first == true) {
+				transform.position = makeVector();
+				first = false;
+			}
+			this.GetComponent<Renderer>().enabled = true;
+			transform.position = Vector3.MoveTowards(transform.position, makeVector(), speed * Time.deltaTime);
 		}
-
-		transform.position = Vector3.MoveTowards(transform.position, makeVector(), speed * Time.deltaTime);
+		else {
+			this.GetComponent<Renderer>().enabled = false;
+		}
 	}
 
 

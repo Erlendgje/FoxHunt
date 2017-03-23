@@ -6,18 +6,48 @@ using System.Xml;
 public class GetData3 : MonoBehaviour {
 
     public GameObject spawn, fox, hunter, obstacle, gameManager;
+	public float lt, ln;
 
-    // Use this for initialization
-    void Start() {
-		
+	// Use this for initialization
+	IEnumerator Start() {
+
+		//Check if gps is on
+		while (!Input.location.isEnabledByUser) {
+			yield return new WaitForSeconds(1f);
+		}
+
+		Input.location.Start(10f, 5f);
+
+		//Trying to connect to gps service
+		int maxWait = 20;
+		while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0) {
+			yield return new WaitForSeconds(1f);
+			maxWait--;
+		}
+
+		if (maxWait < 1) {
+			yield break;
+		}
+
+		//Check if connection failed
+		if (Input.location.status == LocationServiceStatus.Failed) {
+			yield break;
+		}
+		else {
+			lt = Input.location.lastData.latitude;
+			ln = Input.location.lastData.longitude;
+		}
+
+		//Check if gps is on
+		while (Input.location.isEnabledByUser) {
+			yield return new WaitForSeconds(1f);
+		}
+
+		//Restart function if gps is turned off
+		yield return StartCoroutine(Start());
 	}
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
-    public void getConfig() {
+	public void getConfig() {
 
         string url = "http://asia.hiof.no/foxhunt-servlet/getConfig";
 
@@ -87,7 +117,10 @@ public class GetData3 : MonoBehaviour {
 
     public void getState() {
 
-        string url = "http://asia.hiof.no/foxhunt-servlet/getState";
+		lt = Input.location.lastData.latitude;
+		ln = Input.location.lastData.longitude;
+
+		string url = "http://asia.hiof.no/foxhunt-servlet/getState?userid=" + gameManager.GetComponent<GameManager3>().userID + "&lat=" + lt + "&lon=" + ln;
 
         XmlDocument xmlData = new XmlDocument();
         xmlData.Load(url);
@@ -98,7 +131,6 @@ public class GetData3 : MonoBehaviour {
 
         foreach (XmlNode msg in messages) {
             bool gameOver = bool.Parse(msg.Attributes["gameOver"].Value);
-			Debug.Log(gameOver);
             gameManager.GetComponent<GameManager3>().setGameOver(gameOver);
         }
 

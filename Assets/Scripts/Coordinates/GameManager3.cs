@@ -14,6 +14,7 @@ public class GameManager3 : MonoBehaviour {
     public float inGameMapHeight;
     public float inGameMapWidth;
     public float scale = 1000;
+	public int userID = 101;
 
 
     public double catchrange;

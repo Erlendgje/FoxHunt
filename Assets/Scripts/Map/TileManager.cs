@@ -40,6 +40,7 @@ public class TileManager : MonoBehaviour {
         else {
             lat = Input.location.lastData.latitude;
             lon = Input.location.lastData.longitude;
+			
         }
 
         StartCoroutine(loadTiles(_settings.zoom));
@@ -51,7 +52,8 @@ public class TileManager : MonoBehaviour {
 
         //Restart function if gps is turned off
         yield return StartCoroutine(Start ());
-    }
+		
+	}
 
     IEnumerator loadTiles(int zoom) {
         lat = Input.location.lastData.latitude;
