@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GameManager3 : MonoBehaviour {
@@ -25,6 +26,8 @@ public class GameManager3 : MonoBehaviour {
 
     public GameObject serverHandler;
     public GameObject tile;
+	public GameObject tree;
+	public GameObject cam;
 
     public Dictionary<int, GameObject> gameObjects;
 
@@ -37,10 +40,10 @@ public class GameManager3 : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+		cam.transform.position = gameObjects[userID].transform.position + new Vector3(-2,15,0);
     }
 
-    public void setSettings(decimal[,] boundary, double catchrange, bool gps, bool opponents, bool points) {
+    public void SetSettings(decimal[,] boundary, double catchrange, bool gps, bool opponents, bool points) {
         this.boundary = boundary;
         this.catchrange = catchrange;
         this.gps = gps;
@@ -82,15 +85,65 @@ public class GameManager3 : MonoBehaviour {
         inGameMapHeight = tile.GetComponent<Renderer>().bounds.size.x;
         inGameMapWidth = tile.GetComponent<Renderer>().bounds.size.z;
         tile.transform.position = new Vector3(inGameMapHeight/2, 0, inGameMapWidth/2);
+		tile.transform.localScale = new Vector3(tile.transform.localScale.x + 4, Vector3.one.y, tile.transform.localScale.z + 4);
 
-    }
 
-    public void setGameOver(bool gameOver) {
+		for(int i = 0; i < boundary.Length/2; i++) {
+
+			Vector3 corner1;
+			Vector3 corner2;
+			float difference;
+			float differenceX;
+			float differenceY;
+
+			corner1 = MakeVector((float)boundary[1, i], (float)boundary[0, i]);
+
+			if (i < boundary.Length/2 - 1) {
+				corner2 = MakeVector((float)boundary[1, i + 1], (float)boundary[0, i + 1]);
+			}
+			else {
+				corner2 = MakeVector((float)boundary[1, 0], (float)boundary[0, 0]);
+			}
+
+			difference = Vector3.Distance(corner1, corner2);
+
+			differenceX = Math.Abs(corner1.x - corner2.x) / (difference / 2);
+			differenceY = Math.Abs(corner1.z - corner2.z) / (difference / 2);
+
+
+			for (int k = 0; k < difference/2; k++) {
+
+				float x = 0;
+				float y = 0;
+
+				if (corner1.x > corner2.x) {
+					x = corner1.x - differenceX * k + (UnityEngine.Random.Range(-0.5f, 0.5f));
+				}else {
+					x = corner1.x + differenceX * k + (UnityEngine.Random.Range(-0.5f, 0.5f));
+				}
+
+				if(corner1.z > corner2.z) {
+					y = corner1.z - differenceY * k + (UnityEngine.Random.Range(-0.5f, 0.5f));
+				}else {
+					y = corner1.z + differenceY * k + (UnityEngine.Random.Range(-0.5f, 0.5f));
+				}
+				Instantiate(tree, new Vector3(x, 0.5f, y), transform.rotation);
+			}
+		}
+	}
+
+    public void SetGameOver(bool gameOver) {
         this.gameOver = gameOver;
     }
 
-    public void addGameObject() {
+    public void AddGameObject() {
 
     }
+
+	public Vector3 MakeVector(float ln, float lt) {
+		float z = ((float)easternmostPoint - ln) * (inGameMapWidth / (float)coordinateMapWidth);
+		float x = (lt - (float)southernmosttPoint) * (inGameMapHeight / (float)coordinateMapHeight);
+		return new Vector3(x, 0, z);
+	}
 
 }

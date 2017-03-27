@@ -28,7 +28,7 @@ public class GOScript3 : MonoBehaviour {
     void Update() {
     }
 
-    public void setValues(decimal lt, decimal ln, int id, int score) {
+    public void SetValues(decimal lt, decimal ln, int id, int score) {
 
 		this.id = id;
 
@@ -39,21 +39,14 @@ public class GOScript3 : MonoBehaviour {
 
 
 			if (first == true) {
-				transform.position = makeVector();
+				transform.position = gmScript.MakeVector((float)ln, (float)lt);
 				first = false;
 			}
 			this.GetComponent<Renderer>().enabled = true;
-			transform.position = Vector3.MoveTowards(transform.position, makeVector(), speed * Time.deltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, gmScript.MakeVector((float)ln, (float)lt), speed * Time.deltaTime);
 		}
 		else {
 			this.GetComponent<Renderer>().enabled = false;
 		}
-	}
-
-
-	public Vector3 makeVector() {
-		float z = ((float)gameManager.GetComponent<GameManager3>().easternmostPoint - (float)ln) * (gameManager.GetComponent<GameManager3>().inGameMapWidth / (float)gameManager.GetComponent<GameManager3>().coordinateMapWidth);
-		float x = ((float)lt - (float)gameManager.GetComponent<GameManager3>().southernmosttPoint) * (gameManager.GetComponent<GameManager3>().inGameMapHeight / (float)gameManager.GetComponent<GameManager3>().coordinateMapHeight);
-		return new Vector3(x, transform.position.y, z);
 	}
 }

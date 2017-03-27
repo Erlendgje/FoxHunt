@@ -77,7 +77,7 @@ public class GetData3 : MonoBehaviour {
             bool opponents = bool.Parse(setting.Attributes["opponents"].Value);
             bool points = bool.Parse(setting.Attributes["points"].Value);
 
-            gameManager.GetComponent<GameManager3>().setSettings(boundary, catchrange, gps, opponents, points);
+            gameManager.GetComponent<GameManager3>().SetSettings(boundary, catchrange, gps, opponents, points);
         }
 
 
@@ -131,7 +131,7 @@ public class GetData3 : MonoBehaviour {
 
         foreach (XmlNode msg in messages) {
             bool gameOver = bool.Parse(msg.Attributes["gameOver"].Value);
-            gameManager.GetComponent<GameManager3>().setGameOver(gameOver);
+            gameManager.GetComponent<GameManager3>().SetGameOver(gameOver);
         }
 
         XmlNodeList gameObjects = xmlData.GetElementsByTagName("gameObject");
@@ -151,12 +151,19 @@ public class GetData3 : MonoBehaviour {
             decimal ln = decimal.Parse(gameObject.Attributes["ln"].Value);
             decimal lt = decimal.Parse(gameObject.Attributes["lt"].Value);
             int id = int.Parse(gameObject.Attributes["id"].Value);
-			int score = int.Parse(gameObject.Attributes["caught"].Value);
+			int score = 0;
+			try {
+				score = int.Parse(gameObject.Attributes["caught"].Value);
+			}
+			catch {
+
+			}
+			
             GameObject tempGO;
 
             gameManager.GetComponent<GameManager3>().gameObjects.TryGetValue(id, out tempGO);
 
-            tempGO.GetComponent<GOScript3>().setValues(lt, ln, id, score);
+            tempGO.GetComponent<GOScript3>().SetValues(lt, ln, id, score);
         }
     }
 }
