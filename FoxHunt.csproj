@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Coordinates\GameManager3.cs" />
     <Compile Include="Assets\Scripts\Coordinates\GetData3.cs" />
     <Compile Include="Assets\Scripts\Map\TileManager.cs" />
+    <Compile Include="Assets\Scripts\Score\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\ServerConnection\GOScript.cs" />
     <Compile Include="Assets\Scripts\ServerConnection\GameManager.cs" />
     <Compile Include="Assets\Scripts\ServerConnection\GetData.cs" />
