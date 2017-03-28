@@ -56,7 +56,7 @@ public class GetData3 : MonoBehaviour {
 
 
 
-        //Henter ut map ariale
+        //Getting map area
         XmlNodeList pointList = xmlData.GetElementsByTagName("point");
         decimal[,] boundary = new decimal[2, 4];
         int i = 0;
@@ -67,7 +67,7 @@ public class GetData3 : MonoBehaviour {
         }
 
 
-        //Henter ut settings fra xmlfila
+        //Getting game settings
         XmlNodeList settings = xmlData.GetElementsByTagName("display");
 
         foreach (XmlNode setting in settings) {
@@ -81,7 +81,7 @@ public class GetData3 : MonoBehaviour {
         }
 
 
-        //Lager spillobjekter i scenen
+        //Creating gameobjects
         XmlNodeList gameObjects = xmlData.GetElementsByTagName("gameObject");
 
         GameObject go = gameManager;
@@ -108,13 +108,14 @@ public class GetData3 : MonoBehaviour {
         getGameObjects(gameObjects);
     }
 
+	//Starting update to/from server each 0.2 sec
 	public void startUpdate() {
 		InvokeRepeating("getState", 0f, 0.2f);
 	}
 
 
 
-
+	//Getting info from server about the games flow.
     public void getState() {
 
 		lt = Input.location.lastData.latitude;
@@ -126,7 +127,7 @@ public class GetData3 : MonoBehaviour {
         xmlData.Load(url);
 
 
-        //Sjekker om spillet er ferdig
+        //Checks if the game is done
         XmlNodeList messages = xmlData.GetElementsByTagName("msg");
 
         foreach (XmlNode msg in messages) {
@@ -136,16 +137,17 @@ public class GetData3 : MonoBehaviour {
 
         XmlNodeList gameObjects = xmlData.GetElementsByTagName("gameObject");
 
+		//Updateing each gameobject
         getGameObjects(gameObjects);
-
-
     }
 
 
+
+	//Updateing gameobjects
     public void getGameObjects(XmlNodeList gameObjects) {
 
 
-        //Setter verdiene til spillobjektene
+        //Getting value from XMLNode and set the value in GOScript
         foreach (XmlNode gameObject in gameObjects) {
 
             decimal ln = decimal.Parse(gameObject.Attributes["ln"].Value);

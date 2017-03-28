@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager3 : MonoBehaviour {
 
+	//Variables used for game calculations
     public decimal[,] boundary;
     public decimal southernmosttPoint;
     public decimal northernmostPoint;
@@ -17,13 +18,14 @@ public class GameManager3 : MonoBehaviour {
     public float scale = 1000;
 	public int userID = 101;
 
-
+	//Game settings from server
     public double catchrange;
     public bool gps;
     public bool opponents;
     public bool points;
     public bool gameOver;
 
+	//Objects
     public GameObject serverHandler;
     public GameObject tile;
 	public GameObject tree;
@@ -34,12 +36,15 @@ public class GameManager3 : MonoBehaviour {
     // Use this for initialization
     void Start() {
         gameObjects = new Dictionary<int, GameObject>();
+
+		//Getting server settings and starting constant update
         serverHandler.GetComponent<GetData3>().getConfig();
 		serverHandler.GetComponent<GetData3>().startUpdate();
 	}
 
     // Update is called once per frame
     void Update() {
+		//moving camera after player
 		cam.transform.position = gameObjects[userID].transform.position + new Vector3(-2,15,0);
     }
 
@@ -50,7 +55,7 @@ public class GameManager3 : MonoBehaviour {
         this.opponents = opponents;
         this.points = points;
 
-
+		//Getting highest and lowest value from the maps coordinates
         for (int i = 0; i < boundary.Length/2; i++) {
 
             if (i == 0) {
@@ -77,17 +82,21 @@ public class GameManager3 : MonoBehaviour {
             }
         }
 
+		//getting height of map in coordinates
         coordinateMapHeight = northernmostPoint - southernmosttPoint;
         coordinateMapWidth = easternmostPoint - westernmostPoint;
 
+		//Creating map/tile
         tile = GameObject.CreatePrimitive(PrimitiveType.Plane);
         tile.transform.localScale = new Vector3(Vector3.one.x + scale * (float)coordinateMapWidth, Vector3.one.y, Vector3.one.z + scale * (float)coordinateMapHeight);
         inGameMapHeight = tile.GetComponent<Renderer>().bounds.size.x;
         inGameMapWidth = tile.GetComponent<Renderer>().bounds.size.z;
         tile.transform.position = new Vector3(inGameMapHeight/2, 0, inGameMapWidth/2);
+		//Increasing tile size so camera cant see outside the map
 		tile.transform.localScale = new Vector3(tile.transform.localScale.x + 4, Vector3.one.y, tile.transform.localScale.z + 4);
 
 
+		//Making a fence around the map
 		for(int i = 0; i < boundary.Length/2; i++) {
 
 			Vector3 corner1;
@@ -96,6 +105,8 @@ public class GameManager3 : MonoBehaviour {
 			float differenceX;
 			float differenceY;
 
+
+			//Getting 2 points that decide where the fence will be built
 			corner1 = MakeVector((float)boundary[1, i], (float)boundary[0, i]);
 
 			if (i < boundary.Length/2 - 1) {
@@ -105,21 +116,21 @@ public class GameManager3 : MonoBehaviour {
 				corner2 = MakeVector((float)boundary[1, 0], (float)boundary[0, 0]);
 			}
 
+			//How long the fence should be and how far it should be between each object.
 			difference = Vector3.Distance(corner1, corner2);
-
 			differenceX = Math.Abs(corner1.x - corner2.x) / (difference / 2);
 			differenceY = Math.Abs(corner1.z - corner2.z) / (difference / 2);
 
-
+			//Making the fence
 			for (int k = 0; k < difference/2; k++) {
 
 				float x = 0;
 				float y = 0;
 
 				if (corner1.x > corner2.x) {
-					x = corner1.x - differenceX * k + (UnityEngine.Random.Range(-0.5f, 0.5f));
+					x = corner1.x - differenceX * k + (UnityEngine.Random.Range(-0.2f, 0.2f));
 				}else {
-					x = corner1.x + differenceX * k + (UnityEngine.Random.Range(-0.5f, 0.5f));
+					x = corner1.x + differenceX * k + (UnityEngine.Random.Range(-0.2f, 0.2f));
 				}
 
 				if(corner1.z > corner2.z) {
@@ -140,6 +151,7 @@ public class GameManager3 : MonoBehaviour {
 
     }
 
+	//Konverting irl coordinates to Vector3
 	public Vector3 MakeVector(float ln, float lt) {
 		float z = ((float)easternmostPoint - ln) * (inGameMapWidth / (float)coordinateMapWidth);
 		float x = (lt - (float)southernmosttPoint) * (inGameMapHeight / (float)coordinateMapHeight);

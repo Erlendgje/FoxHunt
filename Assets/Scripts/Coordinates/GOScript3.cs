@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GOScript3 : MonoBehaviour {
 
+	//Settings for the gameobject
     public decimal lt, ln;
     public int id;
     private float speed = 50f;
@@ -13,6 +14,7 @@ public class GOScript3 : MonoBehaviour {
     private GameManager3 gmScript;
     private bool first;
 
+	//Finding GameManager
     private void Awake() {
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
         gmScript = gameManager.GetComponent<GameManager3>();
@@ -35,16 +37,19 @@ public class GOScript3 : MonoBehaviour {
         }
     }
 
+
+	//Set values and moving the gameobject
     public void SetValues(decimal lt, decimal ln, int id, int score) {
 
         this.id = id;
 
+		//Checking if object is located on the field irl
         if (lt < gmScript.northernmostPoint && lt > gmScript.southernmosttPoint && ln < gmScript.easternmostPoint && ln > gmScript.westernmostPoint) {
             this.lt = lt;
             this.ln = ln;
             this.score = score;
 
-
+			//If its first time to enter field, teleport object to position
             if (first == true) {
                 transform.position = gmScript.MakeVector((float)ln, (float)lt);
                 first = false;
@@ -54,6 +59,7 @@ public class GOScript3 : MonoBehaviour {
         }
         else {
             this.GetComponent<Renderer>().enabled = false;
+			first = true;
         }
     }
 
