@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class GameManager3 : MonoBehaviour {
 
@@ -27,6 +29,7 @@ public class GameManager3 : MonoBehaviour {
     public bool gameOver;
 
     public string date;
+    public string highScore;
 
     public Text scoreText;
 
@@ -71,7 +74,7 @@ public class GameManager3 : MonoBehaviour {
         {
             if (!scores.TryGetValue(id, out temp))
             {
-
+                //Hey, look at this? Tom funksjon jo?????????????????????????????????????????????????????????????????????????????????????????
             }
         }
     }
@@ -172,10 +175,52 @@ public class GameManager3 : MonoBehaviour {
 	}
 
     public void SetGameOver(bool gameOver) {
+
         this.gameOver = gameOver;
+
     }
 
     public void AddGameObject() {
+
+    }
+    //Lagre high score
+    public void saveHighScore()
+    {
+        //Hvis high score filen ikke finnes fra før av, lag ny fil
+        if (!File.Exists(Application.persistentDataPath + "/playerHighScore.dat")){
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath + "/playerHighScore.dat");
+            highScore = scores.ToString() + date  + "\n";
+
+            bf.Serialize(file, highScore);
+            file.Close();
+        }
+        else
+        {
+            //Hvis det finnes, oppdater lista
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/playerHighScore.dat", FileMode.Open);
+            
+            highScore = scores.ToString() + date + "\n";
+            bf.Serialize(file, highScore);
+            file.Close();
+        }
+
+        
+
+    }
+    //Loade High score, denne funksjonen må vel flyttes til High score-menyen/et eller annet script der
+    public void loadHighscore()
+    {
+        if (File.Exists(Application.persistentDataPath + "/playerHighScore.dat"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/playerHighScore.dat", FileMode.Open);
+ 
+            highScore = bf.Deserialize(file).ToString();
+            file.Close();
+
+        }
 
     }
 
