@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager3 : MonoBehaviour {
 
@@ -25,27 +26,54 @@ public class GameManager3 : MonoBehaviour {
     public bool points;
     public bool gameOver;
 
-	//Objects
+    public string date;
+
+    public Text scoreText;
+
+    //Objects
     public GameObject serverHandler;
     public GameObject tile;
 	public GameObject tree;
 	public GameObject cam;
 
     public Dictionary<int, GameObject> gameObjects;
+    public Dictionary<int, Text> scores;
 
     // Use this for initialization
     void Start() {
         gameObjects = new Dictionary<int, GameObject>();
-
-		//Getting server settings and starting constant update
+        scores = new Dictionary<int, Text>();
+        //Getting server settings and starting constant update
         serverHandler.GetComponent<GetData3>().getConfig();
-		serverHandler.GetComponent<GetData3>().startUpdate();
-	}
+        scores.Add(userID, scoreText);
+        serverHandler.GetComponent<GetData3>().startUpdate();
+        //Henter dato den dagen
+        date = System.DateTime.Now.Date.ToString();
+    }
 
     // Update is called once per frame
     void Update() {
 		//moving camera after player
 		cam.transform.position = gameObjects[userID].transform.position + new Vector3(-2,15,0);
+    }
+
+    public void UpdateScore(int id, int score)
+    {
+
+        Text temp;
+        Debug.Log(score);
+        if (id == userID)
+        {
+
+            scores[id].text = "Score: " + score;
+        }
+        else
+        {
+            if (!scores.TryGetValue(id, out temp))
+            {
+
+            }
+        }
     }
 
     public void SetSettings(decimal[,] boundary, double catchrange, bool gps, bool opponents, bool points) {

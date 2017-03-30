@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GOScript3 : MonoBehaviour {
 
@@ -9,7 +10,6 @@ public class GOScript3 : MonoBehaviour {
     public int id;
     private float speed = 50f;
     public int score;
-    public int highScore;
     public GameObject gameManager;
     private GameManager3 gmScript;
     private bool first;
@@ -23,18 +23,12 @@ public class GOScript3 : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        //Henter gamle high score, foreløpig 0 fra start
-        highScore = PlayerPrefs.GetInt("highscore", highScore);
+
     }
 
     // Update is called once per frame
     void Update() {
-        //Oppdaterer high scoren
-        if (score > highScore)
-        {
-            highScore = score;
-            PlayerPrefs.SetInt("highscore", highScore);
-        }
+        
     }
 
 
@@ -42,12 +36,16 @@ public class GOScript3 : MonoBehaviour {
     public void SetValues(decimal lt, decimal ln, int id, int score) {
 
         this.id = id;
+        this.score = score;
+        if (this.CompareTag("Hunter") && first == false)
+        {
+            gmScript.UpdateScore(id, score);
+        }
 
-		//Checking if object is located on the field irl
+        //Checking if object is located on the field irl
         if (lt < gmScript.northernmostPoint && lt > gmScript.southernmosttPoint && ln < gmScript.easternmostPoint && ln > gmScript.westernmostPoint) {
             this.lt = lt;
             this.ln = ln;
-            this.score = score;
 
 			//If its first time to enter field, teleport object to position
             if (first == true) {
