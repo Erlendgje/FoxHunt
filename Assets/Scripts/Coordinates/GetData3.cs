@@ -153,9 +153,17 @@ public class GetData3 : MonoBehaviour {
             decimal ln = decimal.Parse(gameObject.Attributes["ln"].Value);
             decimal lt = decimal.Parse(gameObject.Attributes["lt"].Value);
             int id = int.Parse(gameObject.Attributes["id"].Value);
+			string name = "";
 			int score = 0;
 			try {
 				score = int.Parse(gameObject.Attributes["caught"].Value);
+			}
+			catch {
+
+			}
+
+			try {
+				name = gameObject.Attributes["name"].Value;
 			}
 			catch {
 
@@ -165,7 +173,7 @@ public class GetData3 : MonoBehaviour {
 
             gameManager.GetComponent<GameManager3>().gameObjects.TryGetValue(id, out tempGO);
 
-            tempGO.GetComponent<GOScript3>().SetValues(lt, ln, id, score);
+            tempGO.GetComponent<GOScript3>().SetValues(lt, ln, id, score, name);
         }
     }
 }

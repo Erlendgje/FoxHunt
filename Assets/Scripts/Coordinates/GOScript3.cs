@@ -8,6 +8,7 @@ public class GOScript3 : MonoBehaviour {
 	//Settings for the gameobject
     public decimal lt, ln;
     public int id;
+	public string name;
     private float speed = 50f;
     public int score;
     public GameObject gameManager;
@@ -33,13 +34,13 @@ public class GOScript3 : MonoBehaviour {
 
 
 	//Set values and moving the gameobject
-    public void SetValues(decimal lt, decimal ln, int id, int score) {
+    public void SetValues(decimal lt, decimal ln, int id, int score, string name) {
 
         this.id = id;
         this.score = score;
-        if (this.CompareTag("Hunter") && first == false)
+		if (this.CompareTag("Hunter") && first == false)
         {
-            gmScript.UpdateScore(id, score);
+			gmScript.UpdateScore(id, score, this.name);
         }
 
         //Checking if object is located on the field irl
@@ -49,7 +50,8 @@ public class GOScript3 : MonoBehaviour {
 
 			//If its first time to enter field, teleport object to position
             if (first == true) {
-                transform.position = gmScript.MakeVector((float)ln, (float)lt);
+				this.name = name;
+				transform.position = gmScript.MakeVector((float)ln, (float)lt);
                 first = false;
             }
             this.GetComponent<Renderer>().enabled = true;

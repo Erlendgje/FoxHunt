@@ -18,8 +18,8 @@ public class GameManager3 : MonoBehaviour {
     public decimal coordinateMapWidth;
     public float inGameMapHeight;
     public float inGameMapWidth;
-    public float scale = 1000;
-	public int userID = 101;
+    public float scale;
+	public int userID;
 
 	//Game settings from server
     public double catchrange;
@@ -40,15 +40,14 @@ public class GameManager3 : MonoBehaviour {
 	public GameObject cam;
 
     public Dictionary<int, GameObject> gameObjects;
-    public Dictionary<int, Text> scores;
+    public Dictionary<int, TextMesh> scores;
 
     // Use this for initialization
     void Start() {
         gameObjects = new Dictionary<int, GameObject>();
-        scores = new Dictionary<int, Text>();
+        scores = new Dictionary<int, TextMesh>();
         //Getting server settings and starting constant update
         serverHandler.GetComponent<GetData3>().getConfig();
-        scores.Add(userID, scoreText);
         serverHandler.GetComponent<GetData3>().startUpdate();
         //Henter dato den dagen
         date = System.DateTime.Now.Date.ToString();
@@ -60,23 +59,21 @@ public class GameManager3 : MonoBehaviour {
 		cam.transform.position = gameObjects[userID].transform.position + new Vector3(-2,15,0);
     }
 
-    public void UpdateScore(int id, int score)
+    public void UpdateScore(int id, int score, string name)
     {
-
-        Text temp;
-        Debug.Log(score);
+        TextMesh temp;
         if (id == userID)
         {
-
-            scores[id].text = "Score: " + score;
+            scoreText.text = "Score: " + score;
         }
         else
         {
             if (!scores.TryGetValue(id, out temp))
             {
-                //Hey, look at this? Tom funksjon jo?????????????????????????????????????????????????????????????????????????????????????????
-            }
-        }
+				scores.Add(id, gameObjects[id].GetComponentInChildren<TextMesh>());
+			}
+			scores[id].text = name + "\r\n" + "Score: " + score;
+		}
     }
 
     public void SetSettings(decimal[,] boundary, double catchrange, bool gps, bool opponents, bool points) {
