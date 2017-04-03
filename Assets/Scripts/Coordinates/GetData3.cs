@@ -120,7 +120,6 @@ public class GetData3 : MonoBehaviour {
 
 		lt = Input.location.lastData.latitude;
 		ln = Input.location.lastData.longitude;
-
 		string url = "http://asia.hiof.no/foxhunt-servlet/getState?userid=" + gameManager.GetComponent<GameManager3>().userID + "&lat=" + lt + "&lon=" + ln;
 
         XmlDocument xmlData = new XmlDocument();

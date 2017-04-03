@@ -36,8 +36,16 @@ public class GOScript3 : MonoBehaviour {
 	//Set values and moving the gameobject
     public void SetValues(decimal lt, decimal ln, int id, int score, string name) {
 
+
+		//bug.Log(lt + ", " + ln + ", " + this.name);
+
         this.id = id;
         this.score = score;
+
+		if(this.name == "") {
+			this.name = name;
+		}
+
 		if (this.CompareTag("Hunter") && first == false)
         {
 			gmScript.UpdateScore(id, score, this.name);
@@ -50,7 +58,6 @@ public class GOScript3 : MonoBehaviour {
 
 			//If its first time to enter field, teleport object to position
             if (first == true) {
-				this.name = name;
 				transform.position = gmScript.MakeVector((float)ln, (float)lt);
                 first = false;
             }
