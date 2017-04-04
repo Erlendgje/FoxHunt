@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Coordinates.unity
+- path: Assets/Scenes/CoordinatesWithDesign.unity
   isLoaded: 1
   isActive: 1

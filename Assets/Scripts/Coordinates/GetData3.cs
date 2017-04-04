@@ -142,7 +142,7 @@ public class GetData3 : MonoBehaviour {
 
 
 
-	//Updateing gameobjects
+	//Updating gameobjects
     public void getGameObjects(XmlNodeList gameObjects) {
 
 

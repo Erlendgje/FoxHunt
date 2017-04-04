@@ -1,0 +1,230 @@
+fileFormatVersion: 2
+guid: d2007868e87d521488a84f55d249c78d
+timeCreated: 1491322894
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Back1
+    100002: Back2
+    100004: Back3
+    100006: BodyBack
+    100008: //RootNode
+    100010: Head
+    100012: Hip
+    100014: joint2
+    100016: joint20
+    100018: joint21
+    100020: joint22
+    100022: joint23
+    100024: joint24
+    100026: joint25
+    100028: joint26
+    100030: joint3
+    100032: joint4
+    100034: joint5
+    100036: joint7
+    100038: joint8
+    100040: joint9
+    100042: LeftForearm
+    100044: LeftHindleg
+    100046: Mouth
+    100048: Neck
+    100050: Neck2
+    100052: pSphere7
+    100054: RightForearm
+    100056: RightHindLeg
+    100058: Shoulders
+    400000: Back1
+    400002: Back2
+    400004: Back3
+    400006: BodyBack
+    400008: //RootNode
+    400010: Head
+    400012: Hip
+    400014: joint2
+    400016: joint20
+    400018: joint21
+    400020: joint22
+    400022: joint23
+    400024: joint24
+    400026: joint25
+    400028: joint26
+    400030: joint3
+    400032: joint4
+    400034: joint5
+    400036: joint7
+    400038: joint8
+    400040: joint9
+    400042: LeftForearm
+    400044: LeftHindleg
+    400046: Mouth
+    400048: Neck
+    400050: Neck2
+    400052: pSphere7
+    400054: RightForearm
+    400056: RightHindLeg
+    400058: Shoulders
+    4300000: pSphere7
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: pSphere7
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BodyBack
+        weight: 1
+      - path: BodyBack/Hip
+        weight: 1
+      - path: BodyBack/Hip/Back1
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/LeftForearm
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/LeftForearm/joint7
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/LeftForearm/joint7/joint8
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/LeftForearm/joint7/joint8/joint9
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/Neck
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/Neck/Neck2
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/Neck/Neck2/Head
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/Neck/Neck2/Head/Mouth
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/RightForearm
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/RightForearm/joint20
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/RightForearm/joint20/joint21
+        weight: 1
+      - path: BodyBack/Hip/Back1/Back2/Back3/Shoulders/RightForearm/joint20/joint21/joint22
+        weight: 1
+      - path: BodyBack/LeftHindleg
+        weight: 1
+      - path: BodyBack/LeftHindleg/joint2
+        weight: 1
+      - path: BodyBack/LeftHindleg/joint2/joint3
+        weight: 1
+      - path: BodyBack/LeftHindleg/joint2/joint3/joint4
+        weight: 1
+      - path: BodyBack/LeftHindleg/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: BodyBack/RightHindLeg
+        weight: 1
+      - path: BodyBack/RightHindLeg/joint23
+        weight: 1
+      - path: BodyBack/RightHindLeg/joint23/joint24
+        weight: 1
+      - path: BodyBack/RightHindLeg/joint23/joint24/joint25
+        weight: 1
+      - path: BodyBack/RightHindLeg/joint23/joint24/joint25/joint26
+        weight: 1
+      - path: pSphere7
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: BodyBack
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -180,10 +180,10 @@ public class GameManager3 : MonoBehaviour {
     public void AddGameObject() {
 
     }
-    //Lagre high score
+    //Saving high score
     public void saveHighScore()
     {
-        //Hvis high score filen ikke finnes fra før av, lag ny fil
+        //If high score file don't exist, make one
         if (!File.Exists(Application.persistentDataPath + "/playerHighScore.dat")){
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + "/playerHighScore.dat");
@@ -194,7 +194,7 @@ public class GameManager3 : MonoBehaviour {
         }
         else
         {
-            //Hvis det finnes, oppdater lista
+            //If it exists, update the file
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/playerHighScore.dat", FileMode.Open);
             
@@ -206,7 +206,8 @@ public class GameManager3 : MonoBehaviour {
         
 
     }
-    //Loade High score, denne funksjonen må vel flyttes til High score-menyen/et eller annet script der
+    //Loading high score
+    //Dette må vel flyttes til en annen script, der den loader high scoren
     public void loadHighscore()
     {
         if (File.Exists(Application.persistentDataPath + "/playerHighScore.dat"))
