@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class GameManager3 : MonoBehaviour {
+public class GameManager4 : MonoBehaviour {
 
 	//Variables used for game calculations
     public decimal[,] boundary;
@@ -38,6 +38,7 @@ public class GameManager3 : MonoBehaviour {
     public GameObject tile;
 	public GameObject tree;
 	public GameObject cam;
+    public Terrain terrain;
 
     public Dictionary<int, GameObject> gameObjects;
     public Dictionary<int, TextMesh> scores;
@@ -47,8 +48,8 @@ public class GameManager3 : MonoBehaviour {
         gameObjects = new Dictionary<int, GameObject>();
         scores = new Dictionary<int, TextMesh>();
         //Getting server settings and starting constant update
-        serverHandler.GetComponent<GetData3>().getConfig();
-        serverHandler.GetComponent<GetData3>().startUpdate();
+        serverHandler.GetComponent<GetData4>().getConfig();
+        serverHandler.GetComponent<GetData4>().startUpdate();
         //Henter dato den dagen
         date = System.DateTime.Now.Date.ToString();
     }
@@ -116,6 +117,7 @@ public class GameManager3 : MonoBehaviour {
 
         //Creating map/tile
         tile = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        tile.GetComponent<Renderer>().material.color = Color.green;
         tile.transform.localScale = new Vector3(Vector3.one.x + scale * (float)coordinateMapWidth, Vector3.one.y, Vector3.one.z + scale * (float)coordinateMapHeight);
         inGameMapHeight = tile.GetComponent<Renderer>().bounds.size.x;
         inGameMapWidth = tile.GetComponent<Renderer>().bounds.size.z;
@@ -123,7 +125,10 @@ public class GameManager3 : MonoBehaviour {
 		//Increasing tile size so camera cant see outside the map
 		tile.transform.localScale = new Vector3(tile.transform.localScale.x + 4, Vector3.one.y, tile.transform.localScale.z + 4);
 
-        
+        //Creating a terrain
+        Vector3 terrainPosition = new Vector3(-200, 0, -200);
+        terrain = Instantiate(terrain, terrainPosition, tile.transform.rotation);
+        terrain.GetComponent<Renderer>().material.color = Color.green;
 
 
         //Making a fence around the map
@@ -176,6 +181,7 @@ public class GameManager3 : MonoBehaviour {
     public void SetGameOver(bool gameOver) {
 
         this.gameOver = gameOver;
+        saveHighScore();
 
     }
 

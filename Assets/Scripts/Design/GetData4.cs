@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml;
 
-public class GetData3 : MonoBehaviour {
+public class GetData4 : MonoBehaviour {
 
     public GameObject spawn, fox, hunter, obstacle, gameManager;
 	public float lt, ln;
@@ -77,7 +77,7 @@ public class GetData3 : MonoBehaviour {
             bool opponents = bool.Parse(setting.Attributes["opponents"].Value);
             bool points = bool.Parse(setting.Attributes["points"].Value);
 
-            gameManager.GetComponent<GameManager3>().SetSettings(boundary, catchrange, gps, opponents, points);
+            gameManager.GetComponent<GameManager4>().SetSettings(boundary, catchrange, gps, opponents, points);
         }
 
 
@@ -98,11 +98,12 @@ public class GetData3 : MonoBehaviour {
                     break;
                 case "Obstacle":
                     go = Instantiate(obstacle, spawn.transform.position, spawn.transform.rotation);
+                    go.GetComponent<Renderer>().material.color = Color.red;
                     break;
             }
 
             int id = int.Parse(gameObject.Attributes["id"].Value);
-            gameManager.GetComponent<GameManager3>().gameObjects.Add(id, go);
+            gameManager.GetComponent<GameManager4>().gameObjects.Add(id, go);
         }
 
         getGameObjects(gameObjects);
@@ -120,7 +121,7 @@ public class GetData3 : MonoBehaviour {
 
 		lt = Input.location.lastData.latitude;
 		ln = Input.location.lastData.longitude;
-		string url = "http://asia.hiof.no/foxhunt-servlet/getState?userid=" + gameManager.GetComponent<GameManager3>().userID + "&lat=" + lt + "&lon=" + ln;
+		string url = "http://asia.hiof.no/foxhunt-servlet/getState?userid=" + gameManager.GetComponent<GameManager4>().userID + "&lat=" + lt + "&lon=" + ln;
 
         XmlDocument xmlData = new XmlDocument();
         xmlData.Load(url);
@@ -131,12 +132,12 @@ public class GetData3 : MonoBehaviour {
 
         foreach (XmlNode msg in messages) {
             bool gameOver = bool.Parse(msg.Attributes["gameOver"].Value);
-            gameManager.GetComponent<GameManager3>().SetGameOver(gameOver);
+            gameManager.GetComponent<GameManager4>().SetGameOver(gameOver);
         }
 
         XmlNodeList gameObjects = xmlData.GetElementsByTagName("gameObject");
 
-		//Updateing each gameobject
+		//Updating each gameobject
         getGameObjects(gameObjects);
     }
 
@@ -170,9 +171,9 @@ public class GetData3 : MonoBehaviour {
 			
             GameObject tempGO;
 
-            gameManager.GetComponent<GameManager3>().gameObjects.TryGetValue(id, out tempGO);
+            gameManager.GetComponent<GameManager4>().gameObjects.TryGetValue(id, out tempGO);
 
-            tempGO.GetComponent<GOScript3>().SetValues(lt, ln, id, score, name);
+            tempGO.GetComponent<GOScript4>().SetValues(lt, ln, id, score, name);
         }
     }
 }
