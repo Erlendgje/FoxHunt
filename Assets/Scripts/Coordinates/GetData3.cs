@@ -98,6 +98,7 @@ public class GetData3 : MonoBehaviour {
                     break;
                 case "Obstacle":
                     go = Instantiate(obstacle, spawn.transform.position, spawn.transform.rotation);
+                    go.GetComponent<Renderer>().material.color = Color.red;
                     break;
             }
 
