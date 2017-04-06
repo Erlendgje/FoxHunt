@@ -95,6 +95,7 @@ public class GetData4 : MonoBehaviour {
                     break;
                 case "Hunter":
                     go = Instantiate(hunter, spawn.transform.position, spawn.transform.rotation);
+                    go.GetComponent<Renderer>().material.color = Color.blue;
                     break;
                 case "Obstacle":
                     go = Instantiate(obstacle, spawn.transform.position, spawn.transform.rotation);
@@ -152,7 +153,7 @@ public class GetData4 : MonoBehaviour {
 
             decimal ln = decimal.Parse(gameObject.Attributes["ln"].Value);
             decimal lt = decimal.Parse(gameObject.Attributes["lt"].Value);
-            int id = int.Parse(gameObject.Attributes["id"].Value);
+            int id  = int.Parse(gameObject.Attributes["id"].Value);
 			string name = "";
 			int score = 0;
 			try {

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections;
 
 public class GameManager4 : MonoBehaviour {
 
@@ -36,7 +37,7 @@ public class GameManager4 : MonoBehaviour {
     //Objects
     public GameObject serverHandler;
     public GameObject tile;
-	public GameObject tree;
+	//public GameObject tree;
 	public GameObject cam;
     public Terrain terrain;
 
@@ -125,7 +126,7 @@ public class GameManager4 : MonoBehaviour {
 		//Increasing tile size so camera cant see outside the map
 		tile.transform.localScale = new Vector3(tile.transform.localScale.x + 4, Vector3.one.y, tile.transform.localScale.z + 4);
 
-        //Creating a terrain
+        //Creating a terrain with grass (Prefab)
         Vector3 terrainPosition = new Vector3(-200, 0, -200);
         terrain = Instantiate(terrain, terrainPosition, tile.transform.rotation);
         terrain.GetComponent<Renderer>().material.color = Color.green;
@@ -173,7 +174,9 @@ public class GameManager4 : MonoBehaviour {
 				}else {
 					y = corner1.z + differenceY * k + (UnityEngine.Random.Range(-0.5f, 0.5f));
 				}
-				Instantiate(tree, new Vector3(x, 0.5f, y), transform.rotation);
+                //Spawner forskjellige trær som gjerde, ved bruk av RNG
+                int number = UnityEngine.Random.Range(1,3);
+				GameObject tree = Instantiate(Resources.Load("Tree" + number), new Vector3(x, 0.1f, y), transform.rotation) as GameObject;
 			}
 		}
 	}
