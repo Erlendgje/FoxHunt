@@ -118,7 +118,6 @@ public class GameManager4 : MonoBehaviour {
 
         //Creating map/tile
         tile = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        tile.GetComponent<Renderer>().material.color = Color.green;
         tile.transform.localScale = new Vector3(Vector3.one.x + scale * (float)coordinateMapWidth, Vector3.one.y, Vector3.one.z + scale * (float)coordinateMapHeight);
         inGameMapHeight = tile.GetComponent<Renderer>().bounds.size.x;
         inGameMapWidth = tile.GetComponent<Renderer>().bounds.size.z;
@@ -127,7 +126,7 @@ public class GameManager4 : MonoBehaviour {
 		tile.transform.localScale = new Vector3(tile.transform.localScale.x + 4, Vector3.one.y, tile.transform.localScale.z + 4);
 
         //Creating a terrain with grass (Prefab)
-        Vector3 terrainPosition = new Vector3(-200, 0, -200);
+        Vector3 terrainPosition = new Vector3(-20, 0, -20);
         terrain = Instantiate(terrain, terrainPosition, tile.transform.rotation);
         terrain.GetComponent<Renderer>().material.color = Color.green;
 
@@ -159,11 +158,13 @@ public class GameManager4 : MonoBehaviour {
 
 			//Making the fence
 			for (int k = 0; k < difference/2; k++) {
-
+                //Fence positions
 				float x = 0;
 				float y = 0;
+                
 
-				if (corner1.x > corner2.x) {
+
+                if (corner1.x > corner2.x) {
 					x = corner1.x - differenceX * k + (UnityEngine.Random.Range(-0.2f, 0.2f));
 				}else {
 					x = corner1.x + differenceX * k + (UnityEngine.Random.Range(-0.2f, 0.2f));
@@ -177,9 +178,33 @@ public class GameManager4 : MonoBehaviour {
                 //Spawner forskjellige trær som gjerde, ved bruk av RNG
                 int number = UnityEngine.Random.Range(1,3);
 				GameObject tree = Instantiate(Resources.Load("Tree" + number), new Vector3(x, 0.1f, y), transform.rotation) as GameObject;
+
+               
 			}
 		}
-	}
+        //World bush positions
+        for (int j = 0; j < 100; j++)
+        {
+            float a = UnityEngine.Random.Range(-20, 40);
+            float b = UnityEngine.Random.Range(-20, 40);
+
+            //Try not to be inside the map
+            if (0 < a && 25 > a)
+            {
+                a = UnityEngine.Random.Range(-20, 40);
+            }
+
+            if (0 < b && 25 > b)
+            {
+                b = UnityEngine.Random.Range(-20, 40);
+            }
+
+            //Instantiate bush
+            GameObject bush = Instantiate(Resources.Load("Busk"), new Vector3(a, 0.1f, b), transform.rotation) as GameObject;
+            bush.GetComponent<Renderer>().material.color = Color.green;
+        }
+
+    }
 
     public void SetGameOver(bool gameOver) {
 
